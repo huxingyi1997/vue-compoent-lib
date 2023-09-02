@@ -11,6 +11,6 @@ import Button from '@my/components/esm/button';
 import Box from '@my/components/esm/box';
 const num = ref<number>(100);
 const onClick = () => {
-  num.value += 1;
+  num.value -= 1;
 };
 </script>
