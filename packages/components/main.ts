@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 
-import Example from './examples/layout.vue';
+import Example from './examples/dynamic-form.vue';
 import './src/index.less';
 
 const app = createApp(Example);
