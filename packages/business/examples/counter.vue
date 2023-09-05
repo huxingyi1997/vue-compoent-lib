@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { Box } from '@my/components';
-import { Counter } from './src';
+import { Counter } from '../src';
 </script>
 
 <style>

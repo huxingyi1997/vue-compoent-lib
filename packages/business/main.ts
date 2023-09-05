@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 
-import Example from './example.vue';
+import Example from './examples/drag.vue';
 import '@my/components/css/index.css';
 import './src/index.less';
 
