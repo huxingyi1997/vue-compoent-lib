@@ -12,9 +12,7 @@
 
 <script setup lang="ts">
 import { prefixName } from '../theme/index';
-
 type ButtonType = 'default' | 'primary' | 'success' | 'warning' | 'danger';
-
 type ButtonVariant = 'contained' | 'outlined';
 
 const props = withDefaults(

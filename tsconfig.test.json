@@ -10,13 +10,5 @@
     "module": "NodeNext"
   },
   "include": ["packages", "env.d.ts"],
-  "exclude": [
-    "node_modules",
-    "**/dist",
-    "**/__tests__/**/*",
-    "**/gulpfile.ts",
-    "**/test-helper",
-    "packages/test-utils",
-    "**/*.md"
-  ]
+  "exclude": ["node_modules", "**/dist", "**/*.md"]
 }

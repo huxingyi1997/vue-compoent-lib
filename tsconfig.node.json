@@ -2,7 +2,13 @@
   "extends": "@vue/tsconfig/tsconfig.node.json",
   "compilerOptions": {
     "composite": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "ignoreDeprecations": "5.0"
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
   },
   "include": ["scripts"]
 }

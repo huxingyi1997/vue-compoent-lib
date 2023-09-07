@@ -3,10 +3,10 @@
     <slot v-if="$slots.default"></slot>
   </div>
 </template>
-<script lang="ts" setup>
+<script setup lang="ts">
 import { prefixName } from '../theme';
-const props = defineProps({
-  span: Number
+const props = withDefaults(defineProps<{ span: number }>(), {
+  span: 1
 });
 
 function getSpan(propSpan: number | undefined): number {

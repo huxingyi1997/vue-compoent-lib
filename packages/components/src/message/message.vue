@@ -1,7 +1,9 @@
 <template>
-  <div v-if="show" :class="{ [baseClassName]: true, [typeClassName]: true }">
-    <div>{{ props.text }}</div>
-  </div>
+  <Transition :name="fadeClassName">
+    <div v-if="show" :class="{ [baseClassName]: true, [typeClassName]: true }">
+      <div>{{ props.text }}</div>
+    </div>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
@@ -29,10 +31,9 @@ const closeMessage = () => {
   show.value = false;
 };
 
-defineExpose<{
-  closeMessage: () => void;
-}>({ closeMessage: closeMessage });
+defineExpose({ closeMessage: closeMessage });
 
 const baseClassName = `${prefixName}-message`;
 const typeClassName = `${baseClassName}-${props.type}`;
+const fadeClassName = `${baseClassName}-fade`;
 </script>
