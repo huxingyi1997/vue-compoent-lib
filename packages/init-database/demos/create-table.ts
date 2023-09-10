@@ -9,7 +9,7 @@ const database = process.env.MYSQL_DATABASE;
 // 数据库连接配置
 const config = {
   host: process.env.MYSQL_HOST,
-  port: parseInt(process.env.MYSQL_PORT || ''),
+  port: parseInt(process.env.MYSQL_PORT || '3306'),
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD
 };

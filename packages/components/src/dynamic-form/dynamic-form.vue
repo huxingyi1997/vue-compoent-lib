@@ -42,6 +42,7 @@ import type { DynamicFormField } from './common';
 // 内置支持的表单数据组件
 const registerComponentMap: { [key: string]: Component } = {
   Input: Input,
+  InputPassword: Input.Password,
   RadioList: RadioList
 };
 
