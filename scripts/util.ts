@@ -22,3 +22,11 @@ export const wirteFile = (file: string, text: string) => {
   }
   fs.writeFileSync(file, text);
 };
+
+export const readFile = (filePath: string) => {
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    const result = fs.readFileSync(filePath, { encoding: 'utf8' });
+    return result;
+  }
+  return null;
+};

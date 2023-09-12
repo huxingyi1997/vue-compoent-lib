@@ -2,8 +2,9 @@
   "extends": "@vue/tsconfig/tsconfig.node.json",
   "compilerOptions": {
     "composite": true,
-    "target": "ESNext",
-    "ignoreDeprecations": "5.0"
+    "target": "ES6",
+    "ignoreDeprecations": "5.0",
+    "lib": ["ES6", "DOM"]
   },
   "ts-node": {
     "compilerOptions": {
@@ -11,5 +12,15 @@
       "allowJs": true
     }
   },
-  "include": ["scripts"]
+  "include": [
+    "env.d.ts",
+    "scripts",
+    "packages/work-server/src/lib.d.ts",
+    "packages/work-server/src/",
+    "packages/init-database/src/",
+    "packages/init-database/demos/",
+    "packages/mock-cdn/src/",
+    "packages/mock-cdn/demos/"
+  ],
+  "exclude": ["node_modules"]
 }

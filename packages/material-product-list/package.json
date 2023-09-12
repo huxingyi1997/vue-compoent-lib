@@ -1,0 +1,12 @@
+{
+  "name": "@my/material-product-list",
+  "version": "0.1.0",
+  "devDependencies": {
+    "@my/components": "*",
+    "vue": "^3.3.4"
+  },
+  "peerDependencies": {
+    "@my/components": "*",
+    "vue": "^3.3.4"
+  }
+}

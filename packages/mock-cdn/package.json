@@ -1,0 +1,17 @@
+{
+  "name": "@my/mock-cdn",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
+  "scripts": {
+    "serve": "http-server ./ -p 7001"
+  },
+  "dependencies": {
+    "requirejs": "2.3.6",
+    "vue": "3.3.4",
+    "vue-router": "4.2.4"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
