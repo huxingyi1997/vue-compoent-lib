@@ -1,10 +1,9 @@
 import {
   findUserByUsernameAndPassword,
   checkUserIsUsernameExist,
-  createUser,
-  type UserInfo
+  createUser
 } from '../model/user';
-import type { MyAPIResult } from './types';
+import type { MyAPIResult, UserInfo } from '../types';
 
 export async function queryAccount(params: {
   username?: string;
@@ -17,16 +16,16 @@ export async function queryAccount(params: {
   };
   const { username, password } = params;
   if (username && password) {
-    const modalData: UserInfo | null = await findUserByUsernameAndPassword({
+    const modelData: UserInfo | null = await findUserByUsernameAndPassword({
       username,
       password
     });
     result.success = true;
     result.message = '登录成功';
     result.data = {
-      allow: modalData !== null,
-      username: modalData?.username,
-      uuid: modalData?.uuid
+      allow: modelData !== null,
+      username: modelData?.username,
+      uuid: modelData?.uuid
     };
   } else {
     result.message = '登录失败，用户名称或密码错误';

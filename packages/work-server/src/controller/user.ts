@@ -5,7 +5,9 @@ import { jwtConfig } from '../config';
 
 const onlineCookie = 'online-status';
 
-async function parseOnlineUserData(ctx: Context) {
+export async function parseOnlineUserData(
+  ctx: Context
+): Promise<{ username: string; uuid: string }> {
   let userData = null;
   const token = ctx.cookies.get(onlineCookie) || '';
   if (token) {
@@ -24,7 +26,12 @@ export async function getOnlineUser(ctx: Context) {
   ctx.body = await parseOnlineUserData(ctx);
 }
 
-const unCheckPathList = ['/page/sign-in', '/page/home', '/page/sign-out'];
+const unCheckPathList = [
+  '/page/sign-in',
+  '/page/home',
+  '/page/sign-out',
+  '/page/preview'
+];
 
 export async function checkAccountOnlineStatus(ctx: Context, next: Next) {
   if (unCheckPathList.includes(ctx.path)) {
@@ -72,4 +79,17 @@ export async function signUp(ctx: Context) {
 export async function signOut(ctx: Context) {
   ctx.cookies.set(onlineCookie, null);
   ctx.redirect('/');
+}
+
+export async function filterLoginStatus(ctx: Context, next: Next) {
+  const data: any = await parseOnlineUserData(ctx);
+  if (data && data.username && data.uuid) {
+    await next();
+  } else {
+    ctx.body = {
+      data: null,
+      success: false,
+      message: '暂无权限，请先登录'
+    };
+  }
 }

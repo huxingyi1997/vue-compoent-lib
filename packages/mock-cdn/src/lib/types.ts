@@ -4,6 +4,7 @@ export interface MockCDNMaterialData {
   cjs?: string | null;
   amd?: string | null;
   iife?: string | null;
+  propsSchema?: string | null;
 }
 
 export interface MockCDNPageData {

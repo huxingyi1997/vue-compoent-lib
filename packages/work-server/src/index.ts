@@ -7,12 +7,14 @@ import koaBodyParser from 'koa-bodyparser';
 
 import routers from './router';
 import { getServerDir } from './util/file';
+import { syncFileFromCDN } from './middleware/sync-cdn';
 
 const app = new Koa();
 
 const publicDirPath = path.join(getServerDir(), 'public');
 app.use(koaBodyParser());
 app.use(koaMount('/public', koaStatic(publicDirPath)));
+app.use(syncFileFromCDN);
 app.use(routers);
 
 const port = 8001;

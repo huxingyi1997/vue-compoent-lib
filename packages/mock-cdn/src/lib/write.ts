@@ -1,6 +1,5 @@
 import path from 'node:path';
-
-import { writeMaterialFile, writePkgFile, writePageFile } from './util';
+import { writeMaterialFile, writePkgFile, writePageFile } from '../lib/util';
 import type {
   MockCDNMaterialData,
   MockCDNPageData,
@@ -43,6 +42,12 @@ export function pushMaterialToCDN(opts: {
     fileList.push({
       filePath: path.join(name, version, 'index.css'),
       text: data.css || ''
+    });
+  }
+  if (data.propsSchema) {
+    fileList.push({
+      filePath: path.join(name, version, 'props.schema.json'),
+      text: data.propsSchema || '{}'
     });
   }
   for (const item of fileList) {

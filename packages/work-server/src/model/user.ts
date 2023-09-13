@@ -1,17 +1,8 @@
 import md5 from 'md5';
 import { v4 } from 'uuid';
-import { runSQL, tranformModalData } from '../util/db';
 
-export interface UserInfo {
-  id: number;
-  uuid: string;
-  username: string;
-  password: string;
-  info: unknown;
-  extends: unknown;
-  createTime: string;
-  modifyTime: string;
-}
+import { runSQL, tranformModelData } from '../util/db';
+import type { UserInfo } from '../types';
 
 export async function findUserByUsernameAndPassword(params: {
   username: string;
@@ -26,7 +17,7 @@ export async function findUserByUsernameAndPassword(params: {
   const results = await runSQL(sql, values);
   let result = null;
   if (results && results[0] && results[0]?.id >= 0) {
-    result = tranformModalData<UserInfo>(results[0]);
+    result = tranformModelData<UserInfo>(results[0]);
   }
   return result;
 }

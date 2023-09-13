@@ -37,11 +37,26 @@ function toHumpName(name: string): string {
   });
 }
 
-export function tranformModalData<T>(data: any): T {
+function toUnderline(name: string): string {
+  return name.replace(/\B([A-Z])/g, '_$1').toLowerCase();
+}
+
+export function tranformModelData<T>(data: any): T {
   const result: any = {} as T;
   if (data) {
     Object.keys(data).forEach((key) => {
       const humpName = toHumpName(key);
+      result[humpName] = data[key];
+    });
+  }
+  return result;
+}
+
+export function tranformSQLData<T>(data: any): T {
+  const result: any = {} as T;
+  if (data) {
+    Object.keys(data).forEach((key) => {
+      const humpName = toUnderline(key);
       result[humpName] = data[key];
     });
   }

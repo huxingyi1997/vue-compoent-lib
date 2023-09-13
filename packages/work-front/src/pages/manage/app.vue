@@ -1,12 +1,13 @@
 <template>
   <div class="app">
     <header class="header">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/list">List</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/material-list">物料</RouterLink>
+      <RouterLink to="/page-list">页面</RouterLink>
     </header>
     <main class="content">
-      <RouterView />
+      <div class="content-view">
+        <RouterView />
+      </div>
     </main>
   </div>
 </template>
@@ -20,31 +21,43 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
 }
 .app {
+  height: 100%;
+  width: 100%;
+  background: #f5f5f5;
   .header {
     list-style: none;
     margin: 0;
     padding: 0 10px;
     flex-direction: row;
     display: flex;
-    background: #3b889f;
+    background: #001529;
 
     a {
       display: inline-block;
       padding: 10px 20px;
-      font-size: 20px;
+      font-size: 18px;
       color: #ffffff;
       text-decoration: none;
 
       &.active {
         background: #ffffff;
-        color: #3b889f;
+        color: #001529;
       }
     }
   }
   .content {
-    padding: 20px;
+    padding: 20px 40px;
+    box-sizing: border-box;
+
+    .content-view {
+      min-height: 400px;
+      background: #ffffff;
+      box-shadow: 0px 0px 16px #0000001c;
+    }
   }
 }
 </style>

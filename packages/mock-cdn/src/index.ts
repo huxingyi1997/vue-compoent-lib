@@ -1,5 +1,11 @@
 import { pushMaterialToCDN, pushPageToCDN, pushPkgToCDN } from './lib/write';
-import { readFileFromCDN } from './lib/read';
+import { readFileFromCDN, readMaterialVersionsFromCDN } from './lib/read';
 
-export { pushMaterialToCDN, pushPageToCDN, pushPkgToCDN, readFileFromCDN };
+export {
+  pushMaterialToCDN,
+  pushPageToCDN,
+  pushPkgToCDN,
+  readFileFromCDN,
+  readMaterialVersionsFromCDN
+};
 export * from './lib/types';

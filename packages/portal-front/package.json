@@ -8,6 +8,7 @@
     "@koa/router": "^12.0.0",
     "@my/business": "^0.0.1",
     "@my/components": "^0.0.1",
+    "dayjs": "^1.11.9",
     "md5": "^2.3.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"

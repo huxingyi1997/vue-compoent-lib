@@ -32,6 +32,7 @@ export function getPageHTML(
         .replace(
           '<!--INJECT_BEFORE_BODY-->',
           `
+        <script type="module" src="/@vite/client"></script>
         <link href="/public/dist/page/${pageName}.css" rel="stylesheet" />
         <script src="/public/dist/lib/vue.js"></script>
         <script src="/public/dist/lib/vue-router.js"></script>
@@ -46,4 +47,15 @@ export function getPageHTML(
     }
   }
   return html;
+}
+
+const PUBLIC_DIR = path.join(getServerDir(), 'public');
+
+export function writePublicFile(filePath: string, text: string) {
+  const fullPath = path.join(PUBLIC_DIR, filePath);
+  const dirPath = path.dirname(fullPath);
+  if (!(fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory())) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+  fs.writeFileSync(fullPath, text);
 }

@@ -5,7 +5,7 @@
       <h1 class="name">欢迎使用运营搭建平台</h1>
       <p class="info">高效、快速搭建生产高质量的前端页面</p>
       <div>
-        <Button class="btn" type="primary">开始使用</Button>
+        <Button class="btn" type="primary" @click="onClick">开始使用</Button>
       </div>
     </div>
   </main>
@@ -13,6 +13,9 @@
 
 <script setup lang="ts">
 import { Button } from '@my/components';
+const onClick = () => {
+  window.location.href = '/page/manage';
+};
 </script>
 
 <style lang="less">

@@ -1,6 +1,5 @@
 import path from 'node:path';
 import fs from 'node:fs';
-
 import {
   PUBLIC_MATERIAL_DIR,
   PUBLIC_PAGE_DIR,
@@ -32,4 +31,8 @@ export function writePkgFile(filePath: string, text: string) {
     fs.mkdirSync(baseDir, { recursive: true });
   }
   fs.writeFileSync(fullPath, text);
+}
+
+export function isVersion(str: string) {
+  return /^[0-9]+\.[0-9]+\.[0-9]+$/.test(str);
 }
