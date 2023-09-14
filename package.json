@@ -97,5 +97,8 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "typescript-json-schema": "^0.61.0"
   }
 }

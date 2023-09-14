@@ -28,11 +28,10 @@ const router = createRouter({
       path: '/material-edit',
       component: () => import('./views/material-edit.vue')
     },
-    // {
-    //   path: '/material/:id',
-    //   component: () => import('./views/material.vue'),
-    //   children: [{ path: '', component: () => import('./views/material.vue') }]
-    // },
+    {
+      path: '/material-preview',
+      component: () => import('./views/material-preview.vue')
+    },
     {
       path: '/page-list',
       name: 'page-list',

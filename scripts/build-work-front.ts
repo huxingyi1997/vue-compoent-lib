@@ -6,25 +6,24 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { resolvePackagePath } from './util';
+import { buildSSRCode } from './build-work-front-ssr';
+
+const entryList = ['page/home', 'page/manage', 'page/sign-in', 'page/sign-up'];
+const entry: { [key: string]: string } = {};
+
+entryList.forEach((name: string) => {
+  entry[name] = resolvePackagePath(
+    'work-front',
+    'src',
+    name.split('/')[0] + 's',
+    name.split('/')[1],
+    'index.ts'
+  );
+});
 
 const config: Configuration = {
   mode: 'production',
-  entry: {
-    'page/manage': resolvePackagePath(
-      'work-front',
-      'src',
-      'pages',
-      'manage',
-      'index.ts'
-    ),
-    'page/login': resolvePackagePath(
-      'work-front',
-      'src',
-      'pages',
-      'login',
-      'index.ts'
-    )
-  },
+  entry: entry,
   output: {
     clean: true,
     path: resolvePackagePath('work-front', 'dist'),
@@ -100,6 +99,7 @@ const config: Configuration = {
 };
 
 webpack(config, (err, stats) => {
+  buildSSRCode();
   if (err || stats?.hasErrors()) {
     err && console.log(err);
     console.error(stats?.compilation?.errors);

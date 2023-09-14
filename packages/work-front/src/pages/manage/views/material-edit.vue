@@ -15,6 +15,9 @@
       >
         <div class="btn-groups">
           <Button type="primary">确定</Button>
+          <Button type="primary" variant="outlined" @click="onClickToPreview"
+            >预览</Button
+          >
         </div>
       </DynamicForm>
     </div>
@@ -24,12 +27,13 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { DynamicForm, Button, Message } from '@my/components';
 import type { DynamicFormField } from '@my/components';
 import MaterialSnapshot from '../modules/material-snapshot.vue';
 
 const route = useRoute();
+const router = useRouter();
 
 interface MaterialData {
   uuid: string;
@@ -115,6 +119,14 @@ const onFinish = (data: { name: string; version: string }) => {
         duration: 2000
       });
     });
+};
+
+const onClickToPreview = (e: MouseEvent) => {
+  e.preventDefault();
+  router.push({
+    path: '/material-preview',
+    query: { uuid: route.query?.uuid }
+  });
 };
 </script>
 

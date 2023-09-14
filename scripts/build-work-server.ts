@@ -6,6 +6,7 @@ import { rollup } from 'rollup';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import esbuild from 'rollup-plugin-esbuild';
+import json from '@rollup/plugin-json';
 import glob from 'fast-glob';
 import type { OutputOptions } from 'rollup';
 import { resolvePackagePath, wirteFile } from './util';
@@ -114,7 +115,8 @@ const compileTsFiles = async (pkgDirName: string) => {
         loaders: {
           '.vue': 'ts'
         }
-      })
+      }),
+      json()
     ],
     external: await getExternal(pkgDirName),
     treeshake: false
@@ -145,6 +147,8 @@ async function build(pkgDirName: string) {
   await copyFrontFiles(pkgDirName);
 }
 
-console.log('[TS] 开始编译 Node.js 项目···');
-await build('work-server');
-console.log('[TS] 编译所有 Node.js 项目成功！');
+(async () => {
+  console.log('[TS] 开始编译 Node.js 项目···');
+  await build('work-server');
+  console.log('[TS] 编译所有 Node.js 项目成功！');
+})();

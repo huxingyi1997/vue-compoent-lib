@@ -1,12 +1,17 @@
 <template>
-  <div class="banner-slides" @mouseenter="stopPlay()" @mouseleave="startPlay()">
+  <div
+    :style="{ width: props.width, height: props.height }"
+    class="banner-slides"
+    @mouseenter="stopPlay()"
+    @mouseleave="startPlay()"
+  >
     <div class="banner-slides-body">
       <div
         class="banner-slides-item"
-        v-for="(item, i) in list"
-        :key="item.id"
+        v-for="(item, i) in props.banners"
+        :key="i"
         :class="{ fade: index === i }"
-        :style="{ background: item.color }"
+        :style="{ background: item.background }"
       >
         <div class="banner-slides-item-text">{{ item.text }}</div>
       </div>
@@ -17,7 +22,7 @@
     <div class="banner-slides-pointer-list">
       <span
         class="banner-slides-pointer"
-        v-for="(item, i) in list"
+        v-for="(item, i) in props.banners"
         :key="i"
         :class="{ active: index === i }"
         @click="index = i"
@@ -28,29 +33,39 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onUnmounted } from 'vue';
-const list = [
+import { ref, onUnmounted } from 'vue';
+import type { MaterialProps } from './types';
+
+const props = withDefaults(
+  defineProps<{
+    width?: MaterialProps['width'];
+    height?: MaterialProps['width'];
+    banners?: MaterialProps['banners'];
+  }>(),
   {
-    id: 0,
-    text: '这是第1个轮播内容',
-    color: '#66ded3'
-  },
-  {
-    id: 1,
-    text: '这是第2个轮播内容',
-    color: '#f5a991'
-  },
-  {
-    id: 2,
-    text: '这是第3个轮播内容',
-    color: '#9ccef6'
-  },
-  {
-    id: 3,
-    text: '这是第4个轮播内容',
-    color: '#ffeb3b'
+    width: '100%',
+    height: 100,
+    banners: () => [
+      {
+        text: '这是第1个轮播内容',
+        background: '#66ded3'
+      },
+      {
+        text: '这是第2个轮播内容',
+        background: '#f5a991'
+      },
+      {
+        text: '这是第3个轮播内容',
+        background: '#9ccef6'
+      },
+      {
+        text: '这是第4个轮播内容',
+        background: '#ffeb3b'
+      }
+    ]
   }
-];
+);
+
 const duration = 3000;
 const index = ref(0);
 const autoPlay = true;
@@ -60,7 +75,10 @@ const autoPlayFn = () => {
   clearInterval(timer);
   timer = window.setInterval(() => {
     index.value++;
-    if (index.value >= list.length) {
+    if (
+      Array.isArray(props?.banners) &&
+      index.value >= props?.banners?.length
+    ) {
       index.value = 0;
     }
   }, duration);
@@ -70,32 +88,21 @@ const stopPlay = () => {
   if (timer) clearInterval(timer);
 };
 const startPlay = () => {
-  if (list.length && autoPlay) {
+  if (props?.banners?.length && autoPlay) {
     autoPlayFn();
   }
 };
 
 const goToNextSlide = (step: number) => {
   index.value += step;
-
-  if (index.value >= list.length) {
+  if (Array.isArray(props?.banners) && index.value >= props?.banners?.length) {
     index.value = 0;
     return;
   }
-  if (index.value < 0) {
-    index.value = list.length - 1;
+  if (Array.isArray(props?.banners) && index.value < 0) {
+    index.value = props?.banners?.length - 1;
   }
 };
-watch(
-  () => list,
-  (newVal) => {
-    if (newVal.length > 1 && autoPlay) {
-      index.value = 0;
-      autoPlayFn();
-    }
-  },
-  { immediate: true }
-);
 
 onUnmounted(() => {
   clearInterval(timer);

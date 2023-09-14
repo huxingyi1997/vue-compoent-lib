@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "width": {
+      "description": "轮播广告宽度",
+      "title": "宽度",
+      "type": ["string", "number"]
+    },
+    "height": {
+      "description": "轮播广告高度",
+      "title": "高度",
+      "type": ["string", "number"]
+    },
+    "banners": {
+      "description": "广告数据列表",
+      "title": "数据列表",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "description": "广告文本",
+            "title": "文本",
+            "type": "string"
+          },
+          "background": {
+            "description": "广告背景",
+            "title": "背景",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

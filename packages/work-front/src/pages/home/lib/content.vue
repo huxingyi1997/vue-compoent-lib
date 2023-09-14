@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { Button } from '@my/components';
 const onClick = () => {
-  window.location.href = '/page/manage';
+  window.location.href = '/page/manage/';
 };
 </script>
 

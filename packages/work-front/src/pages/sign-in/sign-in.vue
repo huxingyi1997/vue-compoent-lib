@@ -78,7 +78,7 @@ const onFinish = (e: SignInFormData) => {
       });
       if (result.success) {
         setTimeout(() => {
-          window.location.href = '/page/manage';
+          window.location.href = '/page/manage/';
         }, 2000);
       }
     })
