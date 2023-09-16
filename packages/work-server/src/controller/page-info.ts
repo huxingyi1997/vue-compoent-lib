@@ -1,18 +1,20 @@
 import type { Context } from 'koa';
-import * as service from '../service/material';
+import * as service from '../service/page-info';
 import { parseOnlineUserData } from './user';
 
-export async function createMaterial(ctx: Context) {
+export async function createPage(ctx: Context) {
   const userData = await parseOnlineUserData(ctx);
   const params = ctx.request.body as {
     name: string;
-    version: string;
+    currentVersion: string;
+    layout: string;
   };
-  const { name, version } = params;
-  const result = await service.createMaterial(
+  const { name, currentVersion, layout } = params;
+  const result = await service.createPage(
     {
       name,
-      currentVersion: version,
+      currentVersion,
+      layout,
       info: '{}', // TODO
       extend: '{}' // TODO
     },
@@ -23,21 +25,23 @@ export async function createMaterial(ctx: Context) {
   ctx.body = result;
 }
 
-export async function updateMaterial(ctx: Context) {
+export async function updatePage(ctx: Context) {
   const userData = await parseOnlineUserData(ctx);
   const params = ctx.request.body as {
     uuid: string;
     name: string;
     currentVersion: string;
+    layout: string;
     info: string;
     extend: string;
   };
-  const { uuid, name, currentVersion, info, extend } = params;
-  const result = await service.updateMaterial(
+  const { uuid, name, currentVersion, layout, info, extend } = params;
+  const result = await service.updatePage(
     {
       uuid,
       name,
       currentVersion,
+      layout,
       info,
       extend
     },
@@ -48,15 +52,15 @@ export async function updateMaterial(ctx: Context) {
   ctx.body = result;
 }
 
-export async function getMaterialData(ctx: Context) {
+export async function getPageData(ctx: Context) {
   let uuid = '';
   if (typeof ctx.query?.uuid === 'string') {
     uuid = ctx.query?.uuid;
   }
-  ctx.body = await service.getMaterialInfo({ uuid });
+  ctx.body = await service.getPageInfo({ uuid });
 }
 
-export async function getMaterialList(ctx: Context) {
+export async function getPageList(ctx: Context) {
   const { pageSize, pageNum } = ctx.query as {
     pageNum?: string;
     pageSize?: string;
@@ -70,14 +74,5 @@ export async function getMaterialList(ctx: Context) {
     size = 5;
   }
 
-  ctx.body = await service.getMaterialList({ pageSize: size, pageNum: start });
-}
-
-export async function checkMaterialExist(ctx: Context) {
-  const { name = '', currentVersion = '' } = ctx.query as {
-    name?: string;
-    currentVersion?: string;
-  };
-  const result = await service.checkMaterial({ name, currentVersion });
-  ctx.body = result;
+  ctx.body = await service.getPageList({ pageSize: size, pageNum: start });
 }

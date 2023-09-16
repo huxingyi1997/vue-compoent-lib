@@ -9,7 +9,12 @@
     "moduleResolution": "NodeNext",
     "module": "NodeNext"
   },
-  "include": ["packages", "env.d.ts"],
+  "include": [
+    "packages/components",
+    "packages/business",
+    "packages/work/src/front",
+    "env.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "**/dist",

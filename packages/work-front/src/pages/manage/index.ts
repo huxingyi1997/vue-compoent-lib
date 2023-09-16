@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { createApp } from 'vue';
 import App from './app.vue';
 import '@my/components/css/index.css';
+import '@my/business/css/index.css';
 
 const router = createRouter({
   linkActiveClass: 'active',
@@ -13,7 +14,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/material-list'
+      redirect: '/page-list'
     },
     {
       path: '/material-list',
@@ -38,9 +39,8 @@ const router = createRouter({
       component: () => import('./views/page-list.vue')
     },
     {
-      path: '/page/:id',
-      component: () => import('./views/page.vue'),
-      children: [{ path: '', component: () => import('./views/page.vue') }]
+      path: '/page',
+      component: () => import('./views/page.vue')
     }
   ]
 });

@@ -18,6 +18,9 @@ import sqlInsertUserInfo from './sql/insert_user_info.sql?raw';
 import sqlInsertMaterialInfo from './sql/insert_material_info.sql?raw';
 import sqlInsertMaterialSnapshot from './sql/insert_material_snapshot.sql?raw';
 
+import sqlInsertPageInfo from './sql/insert_page_info.sql?raw';
+import sqlInsertPageSnapshot from './sql/insert_page_snapshot.sql?raw';
+
 async function initDatabase() {
   const sqlDB = `CREATE DATABASE IF NOT EXISTS ${database};`;
   await querySQLByPool(sqlDB);
@@ -89,10 +92,32 @@ async function initDatabase() {
     console.log('运营搭建平台 - 完成数据库初始化！');
   }
 
-  // const data = await queryDatabaseSQL(
-  //   'SELECT `id`, `username`from user_info;',
-  //   []
-  // );
+  const pageInfoCount: { page_count: number }[] = (await queryDatabaseSQL(
+    'SELECT COUNT(*) AS page_count FROM page_info;',
+    []
+  )) as { page_count: number }[];
+  if (pageInfoCount?.[0]?.page_count === 0) {
+    console.log(`运营搭建平台 - 数据库 ${database}.page_info 表暂无数据`);
+    await queryDatabaseSQL(sqlInsertPageInfo, []);
+    console.log(
+      `运营搭建平台 - 数据库 ${database} 插入初始数据到 page_info 表成功！`
+    );
+    console.log('运营搭建平台 - 完成数据库初始化！');
+  }
+
+  const pageSnapshotCount: { spanshot_count: number }[] =
+    (await queryDatabaseSQL(
+      'SELECT COUNT(*) AS spanshot_count FROM page_snapshot;',
+      []
+    )) as { spanshot_count: number }[];
+  if (pageSnapshotCount?.[0]?.spanshot_count === 0) {
+    console.log(`运营搭建平台 - 数据库 ${database}.page_snapshot 表暂无数据`);
+    await queryDatabaseSQL(sqlInsertPageSnapshot, []);
+    console.log(
+      `运营搭建平台 - 数据库 ${database} 插入初始数据到 page_spanshot 表成功！`
+    );
+    console.log('运营搭建平台 - 完成数据库初始化！');
+  }
 }
 
 async function init() {

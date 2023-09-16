@@ -46,3 +46,38 @@ export interface MaterialSnapshotDetail {
   materialUuid: string;
   createTime?: string;
 }
+
+export interface PageInfo {
+  id?: number;
+  uuid: string;
+  name: string;
+  currentVersion: string;
+  layout: string; // json
+  info: string; // json
+  extend: string; // json
+  status: number; // 0, 1
+  createTime?: string;
+  modifyTime?: string;
+}
+
+export interface PageSnapshot {
+  id?: number;
+  version: string;
+  userUuid: string;
+  pageUuid: string;
+  pageData: string;
+  extend: string; // json
+  status: number; // 0, 1
+  createTime?: string;
+}
+
+export interface PageSnapshotDetail {
+  id?: number;
+  version: string;
+  userUuid: string;
+  username: string;
+  pageName: string;
+  pageUuid: string;
+  pageData: string;
+  createTime?: string;
+}

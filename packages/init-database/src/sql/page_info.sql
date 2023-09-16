@@ -1,7 +1,7 @@
 CREATE TABLE  IF NOT EXISTS `page_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT, 
   `uuid` varchar(128) NOT NULL UNIQUE COMMENT '页面UUID', 
-  `name` varchar(128) NOT NULL UNIQUE COMMENT '页面名称（字母和数字）', 
+  `name` varchar(128) NOT NULL UNIQUE COMMENT '页面名称（可以是中文，字母和数字）', 
   `current_version` varchar(64) NOT NULL COMMENT '当前版本', 
   `layout` json COMMENT '布局互数据（JSON数据格式）', 
   `info` json COMMENT '描述（JSON数据格式）', 

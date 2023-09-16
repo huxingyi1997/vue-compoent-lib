@@ -1,6 +1,7 @@
 import path from 'node:path';
 import type { Context, Next } from 'koa';
 import { readFileFromCDN } from '@my/mock-cdn';
+
 import { writePublicFile } from '../util/file';
 
 const mimes: Record<string, string> = {

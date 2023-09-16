@@ -1,4 +1,8 @@
+import * as Vue from 'vue';
+import { Component, defineComponent } from 'vue';
 import type { DynamicFormField } from '@my/components';
+
+export const CDN_BASE_URL = '/public/cdn/';
 
 export async function loadMaterialPropsSchema(params: {
   name: string;
@@ -8,7 +12,7 @@ export async function loadMaterialPropsSchema(params: {
   if (document.querySelector('style[data-material-id="${name}"]')) {
     return;
   }
-  const url = `${origin}/public/cdn/material/${name}/${version}/props.schema.json`;
+  const url = `${origin}${CDN_BASE_URL}material/${name}/${version}/props.schema.json`;
   const schema: any = await fetch(url).then((res) => res.json());
   return schema;
 }
@@ -147,4 +151,47 @@ export function parsePropsDataListToData(dataList: any[]) {
     });
   }
   return result;
+}
+
+export async function loadMaterialESMComponent(params: {
+  name: string;
+  version: string;
+}): Promise<Component> {
+  const { name, version } = params;
+  const url = `${origin}${CDN_BASE_URL}material/${name}/${version}/index.esm.js`;
+  /* @vite-ignore */
+  const Module: any = await import(`${url}`);
+  const mod = Module?.default || Module;
+  const MaterialComponent = defineComponent({
+    render() {
+      return Vue.h(mod);
+    }
+  });
+  // const MaterialComponent = mod;
+  return MaterialComponent;
+}
+
+export async function loadMaterialStyle(params: {
+  name: string;
+  version: string;
+}) {
+  const { name, version } = params;
+  const materialId = `${name}/${version}`;
+  if (
+    document.querySelectorAll(`style[data-material-id="${materialId}"]`)
+      ?.length > 0
+  ) {
+    return;
+  }
+  const url = `${CDN_BASE_URL}/material/${name}/${version}/index.css`;
+  const text = await fetch(url).then((res) => res.text());
+  const style = document.createElement('style');
+  style.setAttribute('data-material-id', materialId);
+  style.innerHTML = text;
+  const head =
+    document.querySelector('head') ||
+    document.querySelector('body') ||
+    document.querySelector('html');
+
+  head?.appendChild(style);
 }

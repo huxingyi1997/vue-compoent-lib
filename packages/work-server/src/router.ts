@@ -1,4 +1,5 @@
 import Router from '@koa/router';
+import type { Context } from 'koa';
 
 import { renderPage } from './controller/page';
 import {
@@ -13,11 +14,21 @@ import {
   createMaterial,
   updateMaterial,
   getMaterialData,
-  getMaterialList
+  getMaterialList,
+  checkMaterialExist
 } from './controller/material';
+import {
+  createPage,
+  updatePage,
+  getPageData,
+  getPageList
+} from './controller/page-info';
 import { getMaterialSnapshotList } from './controller/material-snapshot';
 
 const router = new Router();
+router.get('/', (ctx: Context) => {
+  ctx.redirect('/page/home');
+});
 router.get('/page/:pageName', checkAccountOnlineStatus, renderPage);
 router.get(
   '/page/:pageName/:subPageName',
@@ -37,6 +48,12 @@ router.get(
   filterLoginStatus,
   getMaterialSnapshotList
 );
+router.get('/api/get/material/check-exist', checkMaterialExist);
+
+router.post('/api/post/page-info/create', filterLoginStatus, createPage);
+router.post('/api/post/page-info/update', filterLoginStatus, updatePage);
+router.get('/api/get/page-info/data', filterLoginStatus, getPageData);
+router.get('/api/get/page-info/list', filterLoginStatus, getPageList);
 const routers = router.routes();
 
 export default routers;

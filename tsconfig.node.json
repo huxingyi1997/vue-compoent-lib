@@ -3,6 +3,10 @@
   "compilerOptions": {
     "composite": true,
     "target": "ES6",
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "ignoreDeprecations": "5.0",
     "lib": ["ES6", "DOM"]
   },

@@ -1,8 +1,8 @@
 <template>
   <div class="app">
     <header class="header">
-      <RouterLink to="/material-list">物料</RouterLink>
-      <RouterLink to="/page-list">页面</RouterLink>
+      <RouterLink to="/page-list">页面管理</RouterLink>
+      <RouterLink to="/material-list">物料管理</RouterLink>
     </header>
     <main class="content">
       <div class="content-view">
@@ -55,6 +55,9 @@ body {
 
     .content-view {
       min-height: 400px;
+      min-width: 1000px;
+      max-width: 1200px;
+      margin: 0 auto;
       background: #ffffff;
       box-shadow: 0px 0px 16px #0000001c;
     }

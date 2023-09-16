@@ -1,9 +1,8 @@
 import semver from 'semver';
 import { readMaterialVersionsFromCDN } from '@my/mock-cdn';
-import type { MyAPIResult } from '../types';
+import type { MaterialInfo, MyAPIResult } from '../types';
 import * as materialModel from '../model/material';
 import * as snapshotModel from '../model/material-snapshot';
-import type { MaterialInfo } from '../types';
 
 export async function createMaterial(
   params: Pick<MaterialInfo, 'name' | 'currentVersion' | 'info' | 'extend'>,
@@ -156,6 +155,37 @@ export async function getMaterialList(params: {
     result.data = { list, total: countResult?.total, pageSize, pageNum };
     result.success = true;
     result.message = '物料查询成功';
+    return result;
+  } catch (err: any) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    result.message = err?.toString() || '出现异常';
+  }
+  return result;
+}
+
+export async function checkMaterial(
+  params: Pick<MaterialInfo, 'name' | 'currentVersion'>
+) {
+  const result: MyAPIResult = {
+    data: null,
+    success: false,
+    message: '查找失败'
+  };
+  try {
+    const { name, currentVersion } = params;
+    const existMaterial = await materialModel.findMaterialByName({ name });
+    if (
+      existMaterial !== null &&
+      existMaterial?.currentVersion === currentVersion
+    ) {
+      result.data = { material: existMaterial };
+      result.message = '查找物料成功';
+      result.success = true;
+    } else {
+      result.message = `${name} ${currentVersion} 物料不存在或不是最新的`;
+    }
+
     return result;
   } catch (err: any) {
     // eslint-disable-next-line no-console

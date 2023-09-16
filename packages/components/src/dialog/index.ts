@@ -1,7 +1,13 @@
 import { createApp, h } from 'vue';
+import type { Component } from 'vue';
 import { DialogComponent } from './dialog';
 
-function createDialog(params: { text: string; onOk: () => void }) {
+function createDialog(params: {
+  text?: string;
+  Content?: Component;
+  onOk?: () => void;
+  hideFooter?: boolean;
+}) {
   const dom = document.createElement('div');
   const body = document.querySelector('body') as HTMLBodyElement;
   body.appendChild(dom);
@@ -9,7 +15,9 @@ function createDialog(params: { text: string; onOk: () => void }) {
     render() {
       return h(DialogComponent, {
         text: params.text,
-        onOnOk: params.onOk
+        Content: params.Content,
+        onOnOk: params.onOk,
+        hideFooter: params.hideFooter
       });
     }
   });
